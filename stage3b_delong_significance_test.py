@@ -1,8 +1,6 @@
 """
 Stage 3b: DeLong significance test for the Transformer vs LSTM AUC
-comparison on the identical patient-grouped test set (Section 4.1).
-Run after Stage 3 and Stage 2b have both completed, using the independent
-replication run's saved predictions.
+comparison on the identical patient-grouped test set.
 """
 import numpy as np
 from scipy import stats
