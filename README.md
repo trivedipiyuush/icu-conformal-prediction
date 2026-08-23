@@ -8,8 +8,8 @@ Reproducibility code accompanying the MSc dissertation:
 
 ## Overview
 
-Four pipeline stages, run in order on Kaggle (MIMIC-IV credentialed access
-required):
+Four pipeline stages, plus a significance-testing script, run in order on
+Kaggle (MIMIC-IV credentialed access required):
 
 | Stage | Script | Purpose |
 |---|---|---|
@@ -17,6 +17,7 @@ required):
 | 2 | `stage2_fusion_transformer.py` | Trains the primary multimodal (vitals + labs) dual-stream fusion Transformer. |
 | 2b | `stage2b_lstm_baseline.py` | Trains the LSTM baseline with a fixed 60-epoch schedule and best-checkpoint restoration. |
 | 3 | `stage3_conformal_prediction.py` | Split conformal prediction (LAC, APS), Mondrian group-conditional calibration, patient-level exchangeability correction, and all coverage/fairness/robustness analyses reported in the dissertation. |
+| 3b | `stage3b_delong_significance_test.py` | Computes the DeLong significance test for the Transformer-vs-LSTM AUC comparison, run on the independent replication's saved predictions (Section 4.1 of the dissertation). |
 
 ## Reproducing the results
 
@@ -28,12 +29,15 @@ required):
 4. Run `stage2b_lstm_baseline.py` (after Stage 2, in the same session, so it
    picks up the corrected patient-grouped split indices) to train the LSTM
    baseline.
-5. Run `stage3_conformal_prediction.py` last to reproduce all conformal
+5. Run `stage3_conformal_prediction.py` to reproduce all conformal
    prediction, calibration, coverage, and fairness results.
+6. Run `stage3b_delong_significance_test.py` last (after Stage 3 and Stage 2b
+   have both completed in the same session) to reproduce the DeLong test
+   result reported alongside the independent replication run.
 
-All four scripts use a fixed random seed (`42`) throughout for cohort
-sampling, model initialization, and data splitting. Exact split sizes and
-patient counts are reported in Section 4 of the dissertation.
+All scripts use a fixed random seed (`42`) throughout for cohort sampling,
+model initialization, and data splitting. Exact split sizes and patient
+counts are reported in Section 4 of the dissertation.
 
 ## Notes
 
